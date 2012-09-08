@@ -4,14 +4,14 @@
 var MarkdownEditor = function () {
 
     var me = this; //the markdowne editor
-    var converter = new Showdown.converter().makeHtml; //our showdown converter
+    var converter; //our showdown converter
     var updatePreviewTimer; //we need this little timer for update the preview on live preview when text is big
 
     this.run = function () {
 
         me.html = me.getHTML();
 
-        me.textarea.addEventListener("blur", function () {
+        me.textarea.addEventListener("focus", function () {
             me.textarea.isOnFocus = 1;
         }, false);
         me.textarea.addEventListener("blur", function () {
@@ -350,6 +350,9 @@ var MarkdownEditor = function () {
         }
     }
     this.convert = function (text) { //convert markdown into html
+        if (converter == undefined) {
+            converter = new Showdown.converter().makeHtml;
+        }
         text = converter(text);
         return text;
     }

@@ -81,14 +81,21 @@ window.onload = function() {
   		  	MDEditor.updatePreview();
         } else {
 			MDEditor.updatePreview();
-            askDocumentName();
+            askDocumentName(true);
         }
         showToast("☻", 1000);
     }
 
-    function askDocumentName() {
+    function askDocumentName(shouldClose) {
         var userInput = prompt("Name this Document", document.title);
-        document.title = userInput + localStorage.getItem("markdownExtension");
+        if (userInput && userInput != null) {
+            document.title = userInput + localStorage.getItem("markdownExtension");
+        } else {
+            if (shouldClose) {
+                alert(2);
+                window.close();
+            }
+        }
     }
 
     function resizePanels(zen) {
@@ -168,8 +175,8 @@ window.onload = function() {
         }
     }
 
-    var ctrlKey = (navigator.appVersion.indexOf("Mac") == -1) ? "ctrl" : "command";
-    key('ctrl+shift+1', function() {
+    var ctrlKey = (navigator.appVersion.indexOf("Mac") == -1) ? "ctrl" : "⌘";
+    jwerty.key('ctrl+shift+1', function() {
         if (localStorage.getItem("zen") == 1) {
             document.documentElement.style.overflow = 'auto';
             localStorage.setItem("zen", 0);
@@ -184,7 +191,7 @@ window.onload = function() {
         }
         resizePanels();
     });
-    key('ctrl+shift+2', function() {
+    jwerty.key('ctrl+shift+2', function() {
         var onString;
         if (localStorage.getItem("zen") == 0) {
             document.documentElement.style.overflow = 'hidden';
@@ -199,7 +206,7 @@ window.onload = function() {
         }
         showToast("Zen Mode: " + onString, 1000);
     });
-    key('ctrl+shift+3', function() {
+    jwerty.key('ctrl+shift+3', function() {
         if (localStorage.getItem("zen") == 1) {
             if (localStorage.getItem("zenWidth") == 60) {
                 localStorage.setItem("zenWidth", 80);
@@ -211,7 +218,10 @@ window.onload = function() {
             resizePanels();
         }
     });
-    key('ctrl+shift+s', function() {
+    jwerty.key('ctrl+alt+1', function() {
+        alert("booia");
+    });
+    jwerty.key('ctrl+shift+s', function() {
         if (textarea.value.length > 0) {
             saveAsMd();
         } else {
@@ -228,7 +238,7 @@ window.onload = function() {
         }
 
     });
-    key('ctrl+shift+p', function() {
+    jwerty.key('ctrl+shift+p', function() {
         if (textarea.value.length > 0) {
             localStorage["lastHTML"] = MDEditor.getHTML();
             window.open("../pages/print.html");
@@ -236,7 +246,7 @@ window.onload = function() {
             alert("You don't have any Markdown, please write a little bit.");
         }
     });
-    key('ctrl+alt+s', function() {
+    jwerty.key('ctrl+alt+s', function() {
         if (textarea.value.length > 0) {
             var bb = new WebKitBlobBuilder();
             bb.append(style_html(localStorage.getItem("htmlTemplate").replace("{TITLE}", document.title).replace("{HTML_OUTPUT}", preview.innerHTML)));
@@ -245,7 +255,7 @@ window.onload = function() {
             alert("You don't have any Markdown, please write a little bit.");
         }
     });
-    key(ctrlKey + "+alt+c", function() {
+    jwerty.key(ctrlKey + "+alt+c", function() {
         MDEditor.updatePreview();
         chrome.extension.sendRequest(["copyString", style_html(preview.innerHTML)]);
         showToast("HTML Copied", 1000);
@@ -254,7 +264,7 @@ window.onload = function() {
             smartScroller.innerHTML = "";
         }
     });
-    key(ctrlKey + "+alt+v", function() {
+    jwerty.key(ctrlKey + "+alt+v", function() {
         MDEditor.updatePreview();
         chrome.extension.sendRequest(["copyRTF", preview.innerHTML]);
         showToast("RTF Copied", 1000);
@@ -263,16 +273,16 @@ window.onload = function() {
             smartScroller.innerHTML = "";
         }
     });
-    key('⌘+b, ctrl+b', function() {
+    jwerty.key(ctrlKey + '+b', function() {
         MDEditor.wrapTextWithString("**");
     });
-    key('ctrl+i', function() {
+    jwerty.key('ctrl+i', function() {
         MDEditor.wrapTextWithString("*");
     });
-    key('ctrl+l', function() {
+    jwerty.key('ctrl+l', function() {
         MDEditor.addLink();
     });
-    key('ctrl+k', function() {
+    jwerty.key('ctrl+k', function() {
         MDEditor.addImage();
     });
     Math.solve = function(string) {
@@ -303,24 +313,24 @@ window.onload = function() {
 			return initString;
         }
     }
-    key('ctrl+shift+m', function() {
+    jwerty.key('ctrl+shift+m', function() {
         var equation = textarea.value.substring(textarea.value.substring(0, textarea.getCaretPosition()).lastIndexOf("{") + 1, textarea.getCaretPosition());
         var result = Math.solve(equation);
         var newCaretPosition = textarea.value.substring(0, textarea.getCaretPosition()).lastIndexOf("{") + result.length;
         textarea.value = textarea.value.substring(0, textarea.value.substring(0, textarea.getCaretPosition()).lastIndexOf("{")) + result + textarea.value.substring(textarea.getCaretPosition(), textarea.value.length);
         textarea.setCaretPosition(newCaretPosition);
     });
-    key('ctrl+shift+9', function() {
+    jwerty.key('ctrl+shift+9', function() {
         textarea.setCaretPosition(0);
         document.body.scrollTop = 0;
         textarea.scrollTop = 0;
     });
-    key('ctrl+alt+r', function() {
+    jwerty.key('ctrl+alt+r', function() {
         textarea.value = localStorage.getItem("lastText");
 		textarea.setCaretPosition(localStorage.getItem("lastCaret"));
 		document.title = localStorage.getItem("lastTitle")
     });
-    key('ctrl+shift+z', function() {
+    jwerty.key('ctrl+shift+z', function() {
         MDEditor.updatePreview();
         var words = preview.outerText.split(/[\s\.\?]+/).length - 1;
         if (preview.outerText.length !== 0) {
@@ -333,7 +343,7 @@ window.onload = function() {
             smartScroller.innerHTML = "";
         }
     });
-    key('ctrl+alt+z', function() {
+    jwerty.key('ctrl+alt+z', function() {
         MDEditor.updatePreview();
         var characters = preview.outerText.length;
         if (preview.outerText.length !== 0) {
@@ -346,7 +356,7 @@ window.onload = function() {
             smartScroller.innerHTML = "";
         }
     });
-    key('ctrl+shift+x', function() {
+    jwerty.key('ctrl+shift+x', function() {
         var today = new Date();
         time = new Array();
         time[0] = today.getHours();
@@ -358,7 +368,7 @@ window.onload = function() {
         showToast(time[0] + ":" + time[1], 1000);
     });
     var openTime = new Date().getTime();
-    key('ctrl+alt+x', function() {
+    jwerty.key('ctrl+alt+x', function() {
         var timeSpend = Math.floor((new Date().getTime() - openTime) / 60000);
         if (timeSpend > 1) {
             showToast(timeSpend + " minutes", 1000);
@@ -371,30 +381,36 @@ window.onload = function() {
             return p1 + p2.toUpperCase();
         });
     };
-    key('ctrl+shift+y', function() {
-
-        localStorage.setItem("lastText", textarea.value);
-        localStorage.setItem("lastTitle", document.title);
-
-
-        window.open('', '_self', '');
-        window.close();
-        chrome.windows.create({
-            "url": "../Pages/editor.html?open=1",
-            "type": "popup",
-            "width": window.screen.width / 2,
-            "height": window.screen.height / 2
-        });
-    });
-    key('ctrl+,', function() {
+    jwerty.key('ctrl+,', function() {
         var newCaretPosition = textarea.getCaretPosition() + 2;
         textarea.value = textarea.value.substring(0, textarea.getCaretPosition()) + ", " + textarea.value.substring(textarea.getCaretPosition(), textarea.value.length);
         textarea.setCaretPosition(newCaretPosition);
     });
-    key('ctrl+.', function() {
+    jwerty.key('ctrl+.', function() {
         var newCaretPosition = textarea.getCaretPosition() + 2;
         textarea.value = textarea.value.substring(0, textarea.getCaretPosition()) + ". " + textarea.value.substring(textarea.getCaretPosition(), textarea.value.length);
         textarea.setCaretPosition(newCaretPosition);
+    });
+    var shortcuts = JSON.parse("{" + localStorage.getItem("shortcuts") + "}");
+    jwerty.key('esc', function() { //use shortcuts like ios
+        console.log(2);
+        if (shortcuts != undefined) {
+            var shortcut;
+            if (textarea.value.substring(0, textarea.getCaretPosition()).lastIndexOf(" ") > textarea.value.substring(0, textarea.getCaretPosition()).lastIndexOf("\n")) {
+                shotcut = textarea.value.substring(textarea.value.substring(0, textarea.getCaretPosition()).lastIndexOf(" ") + 1, textarea.getCaretPosition());
+            } else if (textarea.value.substring(0, textarea.getCaretPosition()).lastIndexOf(" ") < textarea.value.substring(0, textarea.getCaretPosition()).lastIndexOf("\n")) {
+                shotcut = textarea.value.substring(textarea.value.substring(0, textarea.getCaretPosition()).lastIndexOf("\n") + 1, textarea.getCaretPosition());
+            } else {
+                shotcut = textarea.value;
+            }
+            if (shortcuts[shotcut] != undefined) {
+                MDEditor.textarea.saveUndo();
+                var word = shortcuts[shotcut];
+                var newCaretPosition = textarea.getCaretPosition() - shotcut.length + word.length;
+                textarea.value = textarea.value.substring(0, textarea.getCaretPosition() - shotcut.length) + word + textarea.value.substring(textarea.getCaretPosition(), textarea.value.length);
+                textarea.setCaretPosition(newCaretPosition);
+            }
+        }
     });
     textarea.addEventListener("keydown", function(event) {
         if (event.keyCode == 8) {
@@ -413,7 +429,7 @@ window.onload = function() {
             }
         }
     }, false);
-    key('ctrl+;', function() {
+    jwerty.key('ctrl+;', function() {
         if (textarea.isOnFocus) {
             var newCaretPosition = textarea.getCaretPosition() + "...".length;
             textarea.value = textarea.value.substring(0, textarea.getCaretPosition()) + "..." + textarea.value.substring(textarea.getCaretPosition(), textarea.value.length);
@@ -422,7 +438,7 @@ window.onload = function() {
             textarea.focus();
         }
     });
-    key('ctrl+shift+i', function() {
+    jwerty.key('ctrl+shift+i', function() {
         if (textarea.isOnFocus) {
             if (textarea.hasSelection()) {
                 var newSelection = [];
@@ -436,8 +452,9 @@ window.onload = function() {
             textarea.focus();
         }
     });
-    key('ctrl+shift+u', function() {
+    jwerty.key('ctrl+shift+u', function() {
         if (textarea.isOnFocus) {
+            console.log(2);
             if (textarea.hasSelection()) {
                 var newSelection = [];
                 newSelection[0] = textarea.selectionStart;
@@ -450,7 +467,7 @@ window.onload = function() {
             textarea.focus();
         }
     });
-    key('ctrl+shift+o', function() {
+    jwerty.key('ctrl+shift+o', function() {
         if (textarea.isOnFocus) {
             if (textarea.hasSelection()) {
                 var newSelection = [];
@@ -464,13 +481,13 @@ window.onload = function() {
             textarea.focus();
         }
     });
-    key('ctrl+j', function() {
+    jwerty.key('ctrl+j', function() {
         askDocumentName();
     });
 
 
     document.getElementById("help").onclick = function() {
-        window.open("../pages/help.html");
+        window.open("../pages/editor.html");
     }
 	
     function showToast(message, timer) {

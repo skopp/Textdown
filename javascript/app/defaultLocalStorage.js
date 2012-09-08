@@ -17,3 +17,6 @@ if (localStorage.getItem("htmlTemplate") == undefined) {
 if (localStorage.getItem("markdownExtension") == undefined) {
 	localStorage.setItem("markdownExtension", ".md");
 }
+if (localStorage.getItem("shortcuts") == undefined) { 
+    localStorage.setItem("shortcuts", "\"td\": \"TextDown\"");
+}

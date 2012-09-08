@@ -1,6 +1,6 @@
 TextDown is made using Javascript and it uses some of these libraries:
 
-+ [Keymaster](https://github.com/madrobby/keymaster), for keyboard shortcuts.
++ [Jwerty](https://github.com/keithamus/jwerty/), for keyboard shortcuts.
 + [Showdown](https://github.com/coreyti/showdown), to parse Markdown.
 + [JS Beautifier](http://jsbeautifier.org/), to output a well formated html.
 + [FileSaver.js](https://github.com/eligrey/FileSaver.js/), to generate and save files.
