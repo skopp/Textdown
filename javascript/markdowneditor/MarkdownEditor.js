@@ -5,8 +5,7 @@ var MarkdownEditor = function () {
 
     var me = this; //the markdowne editor
     var converter; //our showdown converter
-    var updatePreviewTimer; //we need this little timer for update the preview on live preview when text is big
-
+    
     this.run = function () {
 
         me.html = me.getHTML();
