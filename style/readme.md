@@ -1,1 +1,0 @@
-I'm not good on css, If got any tip or help to me, just send an email to: **=joaocolombo@outlook.com=**.

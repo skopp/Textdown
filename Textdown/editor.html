@@ -1,0 +1,153 @@
+    <!doctype html>
+<head>
+    <meta charset="utf-8">
+    <title>Textdown</title>
+    <style>
+        @import url('resources/droid sans mono/stylesheet.css');
+        html
+        {
+            height: 100%;
+        }
+        body
+        {
+            background: #f0f0f0;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+        #textarea
+        {
+            background: none;
+            border: none;
+            bottom: 0;
+            color: rgba(0, 0, 0, 0);
+            font-family: 'DroidSansMonoRegular';
+            height: 76%;
+            line-height: 1.8;
+            margin: auto;
+            outline: none;
+            position: absolute;
+            resize: none;
+            right: 0;
+            text-shadow: 0 0 0 1px rgba(0, 0, 0, 0.03);
+            top: 0;
+            width: 100%;
+            -webkit-box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+        #textarea.full
+        {
+            height: -webkit-calc(100% - 56px);
+            padding: 0 28px 0 28px;
+        }
+        #textarea.small
+        {
+            padding: 0 -webkit-calc((100% - 500px)/2) 0 -webkit-calc((100% - 500px)/2);
+        }
+        #textarea.normal
+        {
+            padding: 0 -webkit-calc((100% - 700px)/2) 0 -webkit-calc((100% - 700px)/2);
+        }
+        #textarea.large
+        {
+            padding: 0 -webkit-calc((100% - 900px)/2) 0 -webkit-calc((100% - 900px)/2);
+        }
+        ::-webkit-scrollbar
+        {
+            opacity: 0;
+        }
+        #scrollbar
+        {
+            background: none;
+            height: -webkit-calc((100% - 8px));
+            opacity: 0;
+            position: fixed;
+            right: 4px;
+            top: 4px;
+            width: 16px;
+            z-index: 2;
+            -webkit-transition: opacity 0.1s ease-out;
+        }
+        #scrollbarThumb
+        {
+            background: rgba(128, 128, 128, 0.5);
+            border-radius: 5px;
+            margin-left: 50%;
+            width: 50%;
+        }
+    </style>
+    <style id="editorStyle"></style>
+    <script src="../javascript/2/add_popup_topline.js"></script>
+    <script src="javascript/3/marked.js"></script>
+    <script src="javascript/2/setup_marked.js"></script>
+    <script src="javascript/3/FileSaver.js"></script>
+    <script src="javascript/3/mousetrap.js"></script>
+    <script src="javascript/2/load_default_settings.js"></script>
+    <script src="javascript/editor.js"></script>
+</head>
+<body>
+    <div style="z-index: -1; opacity: 0; position: absolute">
+        <iframe id="iframe"></iframe>
+        <input id="fileInput" type="file" multiple></input>
+    </div>
+    <div id="scrollbar">
+        <div id="scrollbarThumb"></div>
+    </div>
+    <textarea id="textarea" class="mousetrap"># Textdown 0.6
+
+Textdown is a text editor made for Google Chrome. It is simple, efficient, powerful and customizable.
+
+## Features
+
+### Keyboard Shortcuts
+
+The powerful edit tools of Textdown are available via keyboard shortcuts. View all of them using ```Shift + E```.
+
+### Markdown
+
+[Markdown](http://en.wikipedia.org/wiki/Markdown) is a great simple markup language created by [John Gruber](http://daringfireball.net/). You can learn more about it [here](https://www.youtube.com/watch?v=6A5EpqqDOdk). Textdown was made especially for it, supporting all its features, with a smart text input to help your use of it.
+
+### Preview
+
+Before publishing your post or while editing it, Textdown allows you to view the HTML with a preview window. Just ```Command + P```.
+
+### Build-in Calculator
+
+Textdown has an inline math calculator. Type ```{``` followed by an equation, then use ```Command + Shift + M``` to solve it.
+
+### Words Shortcuts
+
+As in the iOS and Android, Textdown allows you to easily use words shortcuts, abbreviations for words or phrases. Go to the options page to lean how to use them.
+
+### Options
+
+If you want to make the maximum use of Textdown, you can customize it in various ways, just go to the options page, that can be accessed by ```Command + <```.
+
+### Offline
+
+Thanks to Google Chrome, you can use the Textdown, and all it's features, even when you are offline.
+
+### Textdown Utilities
+
+[Textdown Utilities](https://chrome.google.com/webstore/detail/textdown-utilities/kacfgjhighpnncecdlhlebgaodkelano) is a separeted Chrome extension that allows you to copy an image or a link, using the right-click menu and open any text file from the web. Also if you use Chrome OS it allows you to open a file directly from the File Manager.
+
+### Open-source
+
+Textdown source code is [hosted on Github](http://github.com/jgfc/textdown).
+
+## About
+
+Textdown is developed and designed by [João Colombo](http://joaocolombo.com), and it uses [Marked.js](https://github.com/chjj/marked), [Mousetrap.js](https://github.com/ccampbell/mousetrap) and [FileSaver.js](https://github.com/eligrey/FileSaver.js/).
+
+### Contact
+
+If you have a bug report, a feedback, a suggestion, or just want to say hi, you can contact me using [email](jgfc@outlook.com) or [twitter](http://twitter.com/jgfc7).
+
+### Inspiration
+
+Textdown was inspired by two *mac only* apps, [Mou](http://mouapp.com) and [Byword](http://bywordapp.com). Also the Textdown's icon was inspired by the [Textastic](http://www.textasticapp.com/)'s icon.
+</textarea>
+</body>
+
+</html>

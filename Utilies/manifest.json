@@ -1,0 +1,30 @@
+{
+    "manifest_version": 2,
+    "name": "Textdown Utilities",
+    "description": "Open a web file with TextDown. Copy a link/image as markdown. Open a file from Chrome OS file manager with Textdown.",
+    "version": "0.1",
+    "background": {
+        "page": "background.html"
+    },
+    "content_scripts": [{
+        "matches": ["https://*/*.md*", "http://*/*.md*", "file://*/*.md", 
+                    "https://*/*.markdown*", "http://*/*.markdown*", "file://*/*.markdown", 
+                    "https://*/*.text", "http://*/*.text", "file://*/*.text", 
+                    "https://*/*.txt", "http://*/*.txt", "file://*/*.txt",
+                    "https://*/*.mdown*", "http://*/*.mddown*", "file://*/*.mdown",
+                    "https://*/*.markdn*", "http://*/*.markdn*", "file://*/*.markdn",
+                    "https://*/*.mkd*", "http://*/*.mkd*", "file://*/*.mkd",
+                    "https://*/*.mkdn*", "http://*/*.mkdn*", "file://*/*.mkdn",
+                    "https://*/*.mdwn*", "http://*/*.mdwn*", "file://*/*.mdwn",
+                    "https://*/*.mdtxt*", "http://*/*.mdtxt*", "file://*/*.mdtxt",
+                    "https://*/*.mdtext*", "http://*/*.mdtext*", "file://*/*.mdtext",
+                    "https://*/*.mdml*", "http://*/*.mdml*", "file://*/*.mdml"],
+        "js": ["content_script.js"]
+    }],
+    "file_browser_handlers": [{
+        "id": "open",
+        "default_title": "Edit with TextDown",
+        "file_filters": ["filesystem:*.md","filesystem:*.markdown","filesystem:*.text","filesystem:*.txt","filesystem:*.mdown","filesystem:*.markdn","filesystem:*.mkd","filesystem:*.mkdn","filesystem:*.mdwn","filesystem:*.mdtxt","filesystem:*.mdtext","filesystem:*.mdml"]
+    }],
+    "permissions": ["management", "tabs", "contextMenus", "fileBrowserHandler"]
+}
