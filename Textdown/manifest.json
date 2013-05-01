@@ -21,7 +21,7 @@
         "unlimitedStorage",
         "notifications"
     ],
-    "version": "0.6",
+    "version": "0.6.1",
     "web_accessible_resources": [
         "resources/48.png"
     ]
